@@ -1,4 +1,4 @@
-const getTodos = (callback) => {
+const getTodos = (resource, callback) => {
     const request = new XMLHttpRequest(); // this creates us a request object
 
     request.addEventListener('readystatechange', function () { // this fires every time there's a state change
@@ -12,22 +12,17 @@ const getTodos = (callback) => {
     });
 
     // request.open('GET', 'https://jsonplaceholder.typicode.com/todos/')
-    request.open('GET', 'todos.json')
+    request.open('GET', resource)
     request.send()
 };
 
-console.log(1);
-console.log(2);
-
-getTodos((err, data) => { // convention: error first, data second
-    console.log('callback fired');
-    if (err) {
-        console.log(err);
-    }
-    else {
+// This is called Callback Hell
+getTodos('todos/luigi.json', (err, data) => { // convention: error first, data second
+    console.log(data);
+    getTodos('todos/mario.json', (err, data) => {
         console.log(data);
-    }
+        getTodos('todos/shaun.json', (err, data) => {
+            console.log(data);
+        });
+    });
 });
-
-console.log(3);
-console.log(4);
