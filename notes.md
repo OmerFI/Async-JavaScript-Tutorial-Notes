@@ -93,3 +93,39 @@ request.addEventListener('readystatechange', function () { // this fires every t
 request.open('GET', 'https://jsonplaceholder.typicode.com/todoss/')
 request.send()
 ```
+
+## Video 4
+
+```js
+const getTodos = (callback) => {
+    const request = new XMLHttpRequest(); // this creates us a request object
+
+    request.addEventListener('readystatechange', function () { // this fires every time there's a state change
+        //console.log(request, request.readyState);
+        if (request.readyState === 4 && request.status === 200) {
+            callback(undefined, request.responseText);
+        } else if (request.readyState === 4) {
+            callback('could not fetch', undefined);
+        }
+    });
+
+    request.open('GET', 'https://jsonplaceholder.typicode.com/todos/')
+    request.send()
+};
+
+console.log(1);
+console.log(2);
+
+getTodos((err, data) => { // convention: error first, data second
+    console.log('callback fired');
+    if (err) {
+        console.log(err);
+    }
+    else {
+        console.log(data);
+    }
+});
+
+console.log(3);
+console.log(4);
+```
