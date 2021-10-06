@@ -8,32 +8,36 @@
 
 ![Async Code Execution Photo](note-imgs/Async.png)
 
-
 ---
+
 > setTimeout: we're passing a function and that function fires after a certain amount of time that we specify.
 
 Example Code:
+
 ```js
 setTimeout(() => {
-    console.log('callback function fired');
-}, 2000) // 2 saniye sonra fonksiyon çalıştırılacak
+  console.log("callback function fired");
+}, 2000); // 2 saniye sonra fonksiyon çalıştırılacak
 ```
 
 This function is `asynchronous.`
 
 JavaScript Code:
+
 ```js
 console.log(1);
 console.log(2);
 
 setTimeout(() => {
-    console.log('callback function fired');
-}, 2000)
+  console.log("callback function fired");
+}, 2000);
 
 console.log(3);
 console.log(4);
 ```
+
 Output:
+
 ```
 1
 2
@@ -41,6 +45,34 @@ Output:
 4
 callback function fired
 ```
+
+---
+
+## HTTP Requests
+
+```js
+const request = new XMLHttpRequest(); // this creates us a request object
+
+request.addEventListener('readystatechange', function() { // this fires every time there's a state change
+    //console.log(request, request.readyState);
+    if (request.readyState === 4) {
+        console.log(request.responseText);
+    }
+}); 
+
+request.open('GET', 'https://jsonplaceholder.typicode.com/todos/')
+request.send()
+```
+
+| Value | State            | Description                                                   |
+| ----- | ---------------- | ------------------------------------------------------------- |
+| 0     | UNSENT           | Client has been created. open() not called yet.               |
+| 1     | OPENED           | open() has been called.                                       |
+| 2     | HEADERS_RECEIVED | send() has been called, and headers and status are available. |
+| 3     | LOADING          | Downloading; responseText holds partial data.                 |
+| 4     | DONE             | The operation is complete.                                    |
+
+Reference: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
 
 ---
 
